@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js"></script>
+  <title>LinkedIn Analytics Tool</title>
+</head>
+<body>
+<div class="container">
+        <header>
+            <div class="logo">
+                <i class="fab fa-linkedin"></i>
+                <h1>LinkedIn Performance Analytics</h1>
+            </div>
+            <div class="date-range">
+                <input type="date" class="date-input" id="startDate">
+                <span>to</span>
+                <input type="date" class="date-input" id="endDate">
+                <button class="btn" id="applyDateFilter">
+                    <i class="fas fa-filter"></i> Apply Filter
+                </button>
+            </div>
+        </header>
+
+        <div class="tabs">
+            <div class="tab active" data-tab="dashboard">Dashboard</div>
+            <div class="tab" data-tab="input">Input Data</div>
+            <div class="tab" data-tab="posts">Top Posts</div>
+            <div class="tab" data-tab="competitors">Competitors</div>
+            <div class="tab" data-tab="export">Export</div>
+        </div>
+
+        <!-- Dashboard Tab -->
+        <div id="dashboard" class="tab-content active">
+            <!-- Highlights Section -->
+            <h2 class="section-title"><i class="fas fa-chart-line"></i> Performance Highlights</h2>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <div class="metric-title">Total Impressions</div>
+                        <div class="metric-icon impressions-icon">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                    </div>
+                    <div class="metric-value" id="totalImpressions">0</div>
+                    <div class="metric-change positive">
+                        <i class="fas fa-arrow-up"></i> <span id="impressionsChange">+0%</span>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <div class="metric-title">Total Reactions</div>
+                        <div class="metric-icon reactions-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                    </div>
+                    <div class="metric-value" id="totalReactions">0</div>
+                    <div class="metric-change positive">
+                        <i class="fas fa-arrow-up"></i> <span id="reactionsChange">+0%</span>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <div class="metric-title">Total Comments</div>
+                        <div class="metric-icon comments-icon">
+                            <i class="fas fa-comment"></i>
+                        </div>
+                    </div>
+                    <div class="metric-value" id="totalComments">0</div>
+                    <div class="metric-change positive">
+                        <i class="fas fa-arrow-up"></i> <span id="commentsChange">+0%</span>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <div class="metric-title">Total Reposts</div>
+                        <div class="metric-icon reposts-icon">
+                            <i class="fas fa-retweet"></i>
+                        </div>
+                    </div>
+                    <div class="metric-value" id="totalReposts">0</div>
+                    <div class="metric-change positive">
+                        <i class="fas fa-arrow-up"></i> <span id="repostsChange">+0%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Visitor & Follower Section -->
+            <h2 class="section-title"><i class="fas fa-user-friends"></i> Visitor & Follower Highlights</h2>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <div class="metric-title">Page Views</div>
+                        <div class="metric-icon views-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                    </div>
+                    <div class="metric-value" id="pageViews">0</div>
+                    <div class="metric-change positive">
+                        <i class="fas fa-arrow-up"></i> <span id="viewsChange">+0%</span>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <div class="metric-title">Unique Visitors</div>
+                        <div class="metric-icon views-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                    </div>
+                    <div class="metric-value" id="uniqueVisitors">0</div>
+                    <div class="metric-change positive">
+                        <i class="fas fa-arrow-up"></i> <span id="visitorsChange">+0%</span>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <div class="metric-title">Button Clicks</div>
+                        <div class="metric-icon views-icon">
+                            <i class="fas fa-mouse-pointer"></i>
+                        </div>
+                    </div>
+                    <div class="metric-value" id="buttonClicks">0</div>
+                    <div class="metric-change positive">
+                        <i class="fas fa-arrow-up"></i> <span id="clicksChange">+0%</span>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <div class="metric-title">Total Followers</div>
+                        <div class="metric-icon followers-icon">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                    </div>
+                    <div class="metric-value" id="totalFollowers">0</div>
+                    <div class="metric-change positive">
+                        <i class="fas fa-arrow-up"></i> <span id="followersChange">+0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Newsletter & Competitors Section -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <div class="metric-title">Article Views</div>
+                        <div class="metric-icon newsletter-icon">
+                            <i class="fas fa-newspaper"></i>
+                        </div>
+                    </div>
+                    <div class="metric-value" id="articleViews">0</div>
+                    <div class="metric-change positive">
+                        <i class="fas fa-arrow-up"></i> <span id="articleChange">+0%</span>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <div class="metric-title">New Subscribers</div>
+                        <div class="metric-icon newsletter-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                    </div>
+                    <div class="metric-value" id="newSubscribers">0</div>
+                    <div class="metric-change positive">
+                        <i class="fas fa-arrow-up"></i> <span id="subscribersChange">+0%</span>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <div class="metric-title">My Total Posts</div>
+                        <div class="metric-icon competitors-icon">
+                            <i class="fas fa-thumbs-up"></i>
+                        </div>
+                    </div>
+                    <div class="metric-value" id="myTotalPosts">0</div>
+                    <div class="metric-change positive">
+                        <i class="fas fa-arrow-up"></i> <span id="postsChange">+0</span>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <div class="metric-title">Engagement Rate</div>
+                        <div class="metric-icon competitors-icon">
+                            <i class="fas fa-percentage"></i>
+                        </div>
+                    </div>
+                    <div class="metric-value" id="engagementRate">0%</div>
+                    <div class="metric-change positive">
+                        <i class="fas fa-arrow-up"></i> <span id="engagementChange">+0%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Input Data Tab -->
+        <div id="input" class="tab-content">
+            <div class="input-section">
+                <h3 class="section-title"><i class="fas fa-chart-bar"></i> Content Performance</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="postDate">Date</label>
+                        <input type="date" id="postDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="impressions">Impressions</label>
+                        <input type="number" id="impressions" placeholder="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="reactions">Reactions</label>
+                        <input type="number" id="reactions" placeholder="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="comments">Comments</label>
+                        <input type="number" id="comments" placeholder="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="reposts">Reposts</label>
+                        <input type="number" id="reposts" placeholder="0">
+                    </div>
+                </div>
+                <button class="btn" id="addPostBtn">
+                    <i class="fas fa-plus"></i> Add Post Data
+                </button>
+            </div>
+
+            <div class="input-section">
+                <h3 class="section-title"><i class="fas fa-user-friends"></i> Visitor & Follower Data</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="visitorDate">Date</label>
+                        <input type="date" id="visitorDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="pageViewsInput">Page Views</label>
+                        <input type="number" id="pageViewsInput" placeholder="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="uniqueVisitorsInput">Unique Visitors</label>
+                        <input type="number" id="uniqueVisitorsInput" placeholder="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="buttonClicksInput">Button Clicks</label>
+                        <input type="number" id="buttonClicksInput" placeholder="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="totalFollowersInput">Total Followers</label>
+                        <input type="number" id="totalFollowersInput" placeholder="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="newFollowersInput">New Followers</label>
+                        <input type="number" id="newFollowersInput" placeholder="0">
+                    </div>
+                </div>
+                <button class="btn" id="addVisitorBtn">
+                    <i class="fas fa-plus"></i> Add Visitor Data
+                </button>
+            </div>
+
+            <div class="input-section">
+                <h3 class="section-title"><i class="fas fa-newspaper"></i> Newsletter Analytics</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="newsletterDate">Date</label>
+                        <input type="date" id="newsletterDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="articleViewsInput">Article Views</label>
+                        <input type="number" id="articleViewsInput" placeholder="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="newSubscribersInput">New Subscribers</label>
+                        <input type="number" id="newSubscribersInput" placeholder="0">
+                    </div>
+                </div>
+                <button class="btn" id="addNewsletterBtn">
+                    <i class="fas fa-plus"></i> Add Newsletter Data
+                </button>
+            </div>
+
+            <div class="input-section">
+                <h3 class="section-title"><i class="fas fa-trophy"></i> Competitor Tracking</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="competitorName">Competitor Name</label>
+                        <input type="text" id="competitorName" placeholder="Company Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="competitorFollowers">Followers</label>
+                        <input type="number" id="competitorFollowers" placeholder="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="competitorPosts">Posts Count</label>
+                        <input type="number" id="competitorPosts" placeholder="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="competitorEngagement">Engagement Rate %</label>
+                        <input type="number" step="0.01" id="competitorEngagement" placeholder="0.00">
+                    </div>
+                </div>
+                <button class="btn" id="addCompetitorBtn">
+                    <i class="fas fa-plus"></i> Add Competitor
+                </button>
+            </div>
+        </div>
+
+        <!-- Top Posts Tab -->
+        <div id="posts" class="tab-content">
+            <div class="alert">
+                <i class="fas fa-lightbulb"></i>
+                <div>
+                    <strong>Top Performing Posts:</strong> These are your best-performing posts based on engagement rate. Focus on creating similar content!
+                </div>
+            </div>
+            
+            <div id="topPostsContainer">
+                <!-- Top posts will be dynamically added here -->
+                <div class="post-card">
+                    <div class="post-header">
+                        <div class="post-date">2023-10-15</div>
+                        <div class="post-engagement">Engagement Rate: 8.5%</div>
+                    </div>
+                    <div class="post-metrics">
+                        <div class="post-metric">
+                            <div class="post-metric-label">Impressions</div>
+                            <div class="post-metric-value">12,450</div>
+                        </div>
+                        <div class="post-metric">
+                            <div class="post-metric-label">Reactions</div>
+                            <div class="post-metric-value">842</div>
+                        </div>
+                        <div class="post-metric">
+                            <div class="post-metric-label">Comments</div>
+                            <div class="post-metric-value">124</div>
+                        </div>
+                        <div class="post-metric">
+                            <div class="post-metric-label">Reposts</div>
+                            <div class="post-metric-value">56</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="post-card">
+                    <div class="post-header">
+                        <div class="post-date">2023-10-08</div>
+                        <div class="post-engagement">Engagement Rate: 7.2%</div>
+                    </div>
+                    <div class="post-metrics">
+                        <div class="post-metric">
+                            <div class="post-metric-label">Impressions</div>
+                            <div class="post-metric-value">9,870</div>
+                        </div>
+                        <div class="post-metric">
+                            <div class="post-metric-label">Reactions</div>
+                            <div class="post-metric-value">612</div>
+                        </div>
+                        <div class="post-metric">
+                            <div class="post-metric-label">Comments</div>
+                            <div class="post-metric-value">98</div>
+                        </div>
+                        <div class="post-metric">
+                            <div class="post-metric-label">Reposts</div>
+                            <div class="post-metric-value">42</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="post-card">
+                    <div class="post-header">
+                        <div class="post-date">2023-10-01</div>
+                        <div class="post-engagement">Engagement Rate: 6.8%</div>
+                    </div>
+                    <div class="post-metrics">
+                        <div class="post-metric">
+                            <div class="post-metric-label">Impressions</div>
+                            <div class="post-metric-value">11,230</div>
+                        </div>
+                        <div class="post-metric">
+                            <div class="post-metric-label">Reactions</div>
+                            <div class="post-metric-value">684</div>
+                        </div>
+                        <div class="post-metric">
+                            <div class="post-metric-label">Comments</div>
+                            <div class="post-metric-value">87</div>
+                        </div>
+                        <div class="post-metric">
+                            <div class="post-metric-label">Reposts</div>
+                            <div class="post-metric-value">39</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Competitors Tab -->
+        <div id="competitors" class="tab-content">
+            <div class="alert">
+                <i class="fas fa-lightbulb"></i>
+                <div>
+                    <strong>Competitor Benchmarking:</strong> Track your top competitors to benchmark your performance and identify growth opportunities.
+                </div>
+            </div>
+            
+            <div id="competitorsList">
+                <div class="competitor-card">
+                    <div class="competitor-info">
+                        <div class="competitor-name">#1 Tech Innovators Inc.</div>
+                        <div class="competitor-metrics">
+                            <div><span class="metric-label">Followers:</span> 45,230</div>
+                            <div><span class="metric-label">Posts:</span> 124</div>
+                            <div><span class="metric-label">Engagement:</span> 4.2%</div>
+                        </div>
+                    </div>
+                    <div class="competitor-rank">1</div>
+                </div>
+                
+                <div class="competitor-card">
+                    <div class="competitor-info">
+                        <div class="competitor-name">#2 Digital Solutions Ltd.</div>
+                        <div class="competitor-metrics">
+                            <div><span class="metric-label">Followers:</span> 38,750</div>
+                            <div><span class="metric-label">Posts:</span> 98</div>
+                            <div><span class="metric-label">Engagement:</span> 3.8%</div>
+                        </div>
+                    </div>
+                    <div class="competitor-rank">2</div>
+                </div>
+                
+                <div class="competitor-card">
+                    <div class="competitor-info">
+                        <div class="competitor-name">#3 Future Tech Group</div>
+                        <div class="competitor-metrics">
+                            <div><span class="metric-label">Followers:</span> 32,180</div>
+                            <div><span class="metric-label">Posts:</span> 156</div>
+                            <div><span class="metric-label">Engagement:</span> 5.1%</div>
+                        </div>
+                    </div>
+                    <div class="competitor-rank">3</div>
+                </div>
+                
+                <div class="competitor-card">
+                    <div class="competitor-info">
+                        <div class="competitor-name">#4 Growth Marketing Co.</div>
+                        <div class="competitor-metrics">
+                            <div><span class="metric-label">Followers:</span> 28,940</div>
+                            <div><span class="metric-label">Posts:</span> 87</div>
+                            <div><span class="metric-label">Engagement:</span> 4.7%</div>
+                        </div>
+                    </div>
+                    <div class="competitor-rank">4</div>
+                </div>
+                
+                <div class="competitor-card">
+                    <div class="competitor-info">
+                        <div class="competitor-name">#5 Social Media Experts</div>
+                        <div class="competitor-metrics">
+                            <div><span class="metric-label">Followers:</span> 25,670</div>
+                            <div><span class="metric-label">Posts:</span> 112</div>
+                            <div><span class="metric-label">Engagement:</span> 3.9%</div>
+                        </div>
+                    </div>
+                    <div class="competitor-rank">5</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Export Tab -->
+        <div id="export" class="tab-content">
+            <div class="input-section">
+                <h3 class="section-title"><i class="fas fa-download"></i> Export Your Data</h3>
+                <p style="margin-bottom: 20px;">Download your analytics in various formats for reporting and analysis.</p>
+                <div class="export-section">
+                    <button class="btn" id="exportCSV">
+                        <i class="fas fa-file-csv"></i> Export to CSV
+                    </button>
+                    <button class="btn btn-secondary" id="exportJSON">
+                        <i class="fas fa-file-code"></i> Download Backup (JSON)
+                    </button>
+                    <button class="btn btn-secondary" id="exportPDF">
+                        <i class="fas fa-file-pdf"></i> Export to PDF
+                    </button>
+                </div>
+            </div>
+
+            <div class="input-section">
+                <h3 class="section-title"><i class="fas fa-upload"></i> Import Data</h3>
+                <p style="margin-bottom: 20px;">Restore your data from a previous backup.</p>
+                <input type="file" id="importFile" accept=".json" style="display: none;">
+                <button class="btn" id="importBtn">
+                    <i class="fas fa-file-import"></i> Import Backup (JSON)
+                </button>
+            </div>
+
+            <div class="input-section">
+                <h3 class="section-title"><i class="fas fa-database"></i> Data Management</h3>
+                <p style="margin-bottom: 20px; color: var(--gray);">Clear all data from browser storage.</p>
+                <button class="btn btn-secondary" id="clearDataBtn">
+                    <i class="fas fa-trash-alt"></i> Clear All Data
+                </button>
+            </div>
+
+            <div class="input-section" style="background: #f0f9ff; border-left: 4px solid var(--primary);">
+                <h3 class="section-title"><i class="fas fa-info-circle"></i> Storage Information</h3>
+                <p style="margin-bottom: 10px;"><strong>Storage Type:</strong> Browser LocalStorage</p>
+                <p style="margin-bottom: 10px;"><strong>Data Location:</strong> Stored in your browser (persists after closing)</p>
+                <p style="margin-bottom: 10px;"><strong>Storage Size:</strong> ~5-10MB available</p>
+                <p style="margin-bottom: 10px;"><strong>Posts:</strong> <span id="postsCount">3</span> entries</p>
+                <p style="margin-bottom: 10px;"><strong>Visitors:</strong> <span id="visitorsCount">0</span> entries</p>
+                <p style="margin-bottom: 10px;"><strong>Competitors:</strong> <span id="competitorsCount">5</span> entries</p>
+                <p style="margin-top: 15px; color: var(--gray); font-size: 14px;">
+                    <i class="fas fa-lightbulb"></i> <strong>Tip:</strong> Download regular backups using "Download Backup" button above!
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
